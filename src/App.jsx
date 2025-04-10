@@ -5,6 +5,8 @@ export default function App() {
 
   const [movieList, setMovieList] = useState(movieData);
   const [filteredMovieList, setFilteredMovieList] = useState(movieData);
+  const [newMovieTitle, setNewMovieTitle] = useState('');
+  const [newMovieGenre, setNewMovieGenre] = useState('');
   const [movieGenre, setMovieGenre] = useState('');
   
 
@@ -27,9 +29,20 @@ export default function App() {
   useEffect(() => {
     if (movieGenre === '') return setFilteredMovieList(movieList);
 
-    const filteredList = movieList.filter(movie => movie.genre === movieGenre);
+    const filteredList = movieList.filter(movie => movie.genre.toLowerCase() === movieGenre.toLowerCase());
     setFilteredMovieList(filteredList);
   }, [movieGenre, movieList]);
+
+
+  const addNewMovie = (event) => {
+    event.preventDefault();
+
+    if ([newMovieTitle, newMovieGenre].some(element => element.trim() === '')) return alert(`Input non valido`);
+
+    setMovieList([...movieList, { title: newMovieTitle, genre: newMovieGenre }]);
+    setNewMovieTitle('');
+    setNewMovieGenre('');
+  };
 
 
   return (
@@ -46,8 +59,8 @@ export default function App() {
         <table>
           <thead>
             <tr>
-              <th>Movie Title</th>
-              <th>Genre</th>
+              <th>Titolo</th>
+              <th>Genere</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +69,14 @@ export default function App() {
         </table>
       </div>
     
+      <div>
+        <form onSubmit={addNewMovie}>
+          <input type="title" value={newMovieTitle} placeholder='Titolo film' onChange={e => setNewMovieTitle(e.target.value)}/>
+          <input type="genre" value={newMovieGenre} placeholder='Genere film' onChange={e => setNewMovieGenre(e.target.value)}/>
+          <button type="submit">Aggiungi</button>
+        </form>
+      </div>
+
     </main>
   )
 };
