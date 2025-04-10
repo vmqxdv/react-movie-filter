@@ -5,9 +5,13 @@ export default function App() {
 
   const [movieList, setMovieList] = useState(movieData);
   const [filteredMovieList, setFilteredMovieList] = useState(movieData);
+  
+  const [movieGenre, setMovieGenre] = useState('');
+
   const [newMovieTitle, setNewMovieTitle] = useState('');
   const [newMovieGenre, setNewMovieGenre] = useState('');
-  const [movieGenre, setMovieGenre] = useState('');
+  
+  const [searchQuery, setSearchQuery] = useState('');
   
 
   const renderMovieList = (list) => {
@@ -45,10 +49,26 @@ export default function App() {
   };
 
 
+  const searchMovie = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    if (query === '') return setFilteredMovieList(movieList);
+
+    const filteredList = movieList.filter(movie =>
+      movie.title.toLowerCase().includes(query)
+    );
+
+    setFilteredMovieList(filteredList);
+  };
+
+
   return (
     <main>
 
       <div>
+        <input type="title" value={searchQuery} placeholder='Ricerca per titolo' onChange={searchMovie}/>
+
         <select name="select" value={movieGenre} onChange={(e) => setMovieGenre(e.target.value)}>
           <option value="">Seleziona un genere</option>
           {movieGenres}
