@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import movieData from './data/movieData.json';
 
-function App() {
+export default function App() {
 
   const [movieList, setMovieList] = useState(movieData);
   const [movieGenre, setMovieGenre] = useState('');
@@ -21,13 +21,10 @@ function App() {
       {movie.genre}
     </option>
   );
-  
 
-
-  useEffect(() => {
+  UseEffect(movieGenre, function () {
     console.log('test')
-  }, [movieGenre])
-
+  });
 
   return (
     <main>
@@ -55,6 +52,11 @@ function App() {
     
     </main>
   )
-}
+};
 
-export default App
+
+
+
+function UseEffect(param, func) {
+  useEffect(func, [param]);
+};
