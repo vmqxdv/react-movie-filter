@@ -4,6 +4,7 @@ import movieData from './data/movieData.json';
 export default function App() {
 
   const [movieList, setMovieList] = useState(movieData);
+  const [filteredMovieList, setFilteredMovieList] = useState(movieData);
   const [movieGenre, setMovieGenre] = useState('');
   
 
@@ -22,9 +23,16 @@ export default function App() {
     </option>
   );
 
-  UseEffect(movieGenre, function () {
-    console.log('test')
-  });
+
+  useEffect(() => {
+    if (movieGenre === '') {
+      setFilteredMovieList(movieList);
+    } else {
+      const filteredList = movieList.filter(movie => movie.genre === movieGenre);
+      setFilteredMovieList(filteredList);
+    };
+  }, [movieGenre, movieList]);
+
 
   return (
     <main>
@@ -45,18 +53,11 @@ export default function App() {
             </tr>
           </thead>
           <tbody>
-            {renderMovieList(movieList)}
+            {renderMovieList(filteredMovieList)}
           </tbody>
         </table>
       </div>
     
     </main>
   )
-};
-
-
-
-
-function UseEffect(param, func) {
-  useEffect(func, [param]);
 };
