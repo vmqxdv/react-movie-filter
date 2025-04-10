@@ -7,15 +7,29 @@ function App() {
 
   const renderMovieList = (list) => {
     return list.map((movie, i) => 
-      <tr key={i}>
+      <tr key={movie.title.toLowerCase()+`-${i}`}>
         <td>{movie.title}</td>
         <td>{movie.genre}</td>
       </tr>
     )
   };
 
+  const movieGenres = movieList.map((movie, i) => 
+    <option key={movie.genre.toLowerCase()+`-${i}`} value={movie.genre}>
+      {movie.genre}
+    </option>
+  );
+
   return (
     <main>
+
+      <div>
+        <select name="select">
+          <option value={null}>Seleziona un genere</option>
+          {movieGenres}
+        </select>
+      </div>
+
       <div>
         <table>
           <thead>
@@ -29,6 +43,7 @@ function App() {
           </tbody>
         </table>
       </div>
+    
     </main>
   )
 }
