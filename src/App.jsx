@@ -25,12 +25,10 @@ export default function App() {
 
 
   useEffect(() => {
-    if (movieGenre === '') {
-      setFilteredMovieList(movieList);
-    } else {
-      const filteredList = movieList.filter(movie => movie.genre === movieGenre);
-      setFilteredMovieList(filteredList);
-    };
+    if (movieGenre === '') setFilteredMovieList(movieList);
+
+    const filteredList = movieList.filter(movie => movie.genre === movieGenre);
+    setFilteredMovieList(filteredList);
   }, [movieGenre, movieList]);
 
 
