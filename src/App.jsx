@@ -25,7 +25,7 @@ export default function App() {
 
 
   useEffect(() => {
-    if (movieGenre === '') setFilteredMovieList(movieList);
+    if (movieGenre === '') return setFilteredMovieList(movieList);
 
     const filteredList = movieList.filter(movie => movie.genre === movieGenre);
     setFilteredMovieList(filteredList);
