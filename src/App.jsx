@@ -23,9 +23,12 @@ export default function App() {
     )
   };
   
-  const movieGenres = movieList.map((movie, i) => 
-    <option key={movie.genre.toLowerCase()+`-${i}`} value={movie.genre}>
-      {movie.genre}
+
+  const movieGenres = movieList.map(m => m.genre);
+
+  const movieGenreOptions = [...new Set(movieGenres)].map((genre, i) =>
+    <option key={genre.toLowerCase()+`-${i}`} value={genre}>
+      {genre}
     </option>
   );
 
@@ -71,7 +74,7 @@ export default function App() {
 
         <select name="select" value={movieGenre} onChange={(e) => setMovieGenre(e.target.value)}>
           <option value="">Seleziona un genere</option>
-          {movieGenres}
+          {movieGenreOptions}
         </select>
       </div>
 
